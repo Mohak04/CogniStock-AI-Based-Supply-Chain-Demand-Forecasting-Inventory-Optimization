@@ -1,0 +1,42 @@
+# Environment variables and secrets
+.env
+.env.*
+.env.example
+
+# Node.js dependencies
+node_modules/
+**/node_modules/
+
+# Build output
+dist/
+build/
+coverage/
+
+# Python cache and virtual environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+ENV/
+
+# Uploaded datasets and generated reports
+backend/storage/uploads/*
+backend/storage/reports/*
+
+# Preserve storage folder placeholders
+!backend/storage/uploads/.gitkeep
+!backend/storage/reports/.gitkeep
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini

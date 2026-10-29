@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-950 text-slate-100 font-sans antialiased selection:bg-blue-600 selection:text-white min-h-screen overflow-x-hidden;
+  }
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* Custom UI Utilities */
+.card-panel {
+  @apply bg-slate-900 border border-slate-800 rounded-xl shadow-lg shadow-black/20 transition-all duration-200;
+}
+
+.card-panel-hover {
+  @apply card-panel hover:border-slate-700 hover:shadow-xl hover:shadow-blue-950/20;
+}
+
+.data-badge-actual {
+  @apply bg-blue-950/60 text-blue-400 border border-blue-500/30 px-2 py-0.5 rounded text-xs font-semibold tracking-wide inline-flex items-center gap-1;
+}
+
+.data-badge-calculated {
+  @apply bg-purple-950/60 text-purple-400 border border-purple-500/30 px-2 py-0.5 rounded text-xs font-semibold tracking-wide inline-flex items-center gap-1;
+}
+
+.data-badge-forecast {
+  @apply bg-amber-950/60 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded text-xs font-semibold tracking-wide inline-flex items-center gap-1;
+}
+
+.data-badge-recommendation {
+  @apply bg-emerald-950/60 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded text-xs font-semibold tracking-wide inline-flex items-center gap-1;
+}
+
+.data-badge-prototype {
+  @apply bg-slate-800 text-slate-300 border border-slate-700 px-2 py-0.5 rounded text-[10px] font-mono uppercase tracking-wider inline-flex items-center gap-1;
+}
+
+/* Animation utilities */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.25s ease-out forwards;
+}
+
+/* Print styling for reports */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  .card-panel {
+    border: 1px solid #ccc !important;
+    background: white !important;
+    box-shadow: none !important;
+  }
+}
