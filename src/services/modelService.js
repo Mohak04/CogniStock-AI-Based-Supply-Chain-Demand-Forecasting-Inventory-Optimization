@@ -8,7 +8,7 @@ export const modelService = {
   },
 
   runModelEvaluation: async (datasetId, horizon = 30) => {
-    const res = await api.post('/forecasts/generate', { datasetId, horizon });
+    const res = await api.post('/forecasts/runs', { datasetId, horizon });
     return res.data;
   }
 };

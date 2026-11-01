@@ -24,6 +24,7 @@ export const ModelComparisonPage = () => {
   const [loading, setLoading] = useState(true);
   const [runningBenchmark, setRunningBenchmark] = useState(false);
   const [benchmarkStatus, setBenchmarkStatus] = useState(null); // 'success' | 'error' | null
+  const [benchmarkError, setBenchmarkError] = useState('');
   const [comparisonData, setComparisonData] = useState(null);
   const [datasets, setDatasets] = useState([]);
   const [selectedDatasetId, setSelectedDatasetId] = useState(searchParams.get('datasetId') || '');
@@ -49,12 +50,14 @@ export const ModelComparisonPage = () => {
   const handleDatasetChange = (newId) => {
     setSelectedDatasetId(newId);
     setBenchmarkStatus(null);
+    setBenchmarkError('');
     setSearchParams(newId ? { datasetId: newId } : {});
   };
 
   const handleRunBenchmark = async () => {
     setRunningBenchmark(true);
     setBenchmarkStatus(null);
+    setBenchmarkError('');
     try {
       await modelService.runModelEvaluation(selectedDatasetId || comparisonData?.datasetId);
       // Re-fetch after completion
@@ -63,6 +66,7 @@ export const ModelComparisonPage = () => {
     } catch (err) {
       console.error('Benchmark run failed:', err);
       setBenchmarkStatus('error');
+      setBenchmarkError(err.message || 'Benchmark run failed.');
     } finally {
       setRunningBenchmark(false);
     }
@@ -152,7 +156,12 @@ export const ModelComparisonPage = () => {
       {benchmarkStatus === 'error' && (
         <div className="p-3.5 rounded-xl bg-red-950/40 border border-red-500/30 text-red-200 text-xs flex items-center gap-3">
           <AlertCircle className="w-5 h-5 text-red-400 shrink-0" />
-          <p>Benchmark run failed. Ensure the ML microservice is running on port 8000 and the dataset has sufficient demand history (≥5 observations per SKU).</p>
+          <div>
+            <p className="font-semibold">Benchmark run failed: {benchmarkError || 'Service communication error.'}</p>
+            <p className="text-[11px] text-red-300 mt-0.5">
+              Ensure the Python ML microservice is running on port 8000 (<code className="font-mono bg-red-900/50 px-1 py-0.5 rounded">cd ml-service && python main.py</code>) and the dataset has products with valid historical demand (≥5 observations).
+            </p>
+          </div>
         </div>
       )}
 
